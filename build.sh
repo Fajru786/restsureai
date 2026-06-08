@@ -14,4 +14,7 @@ python manage.py collectstatic --noinput
 echo ">>> Running database migrations (Neon PostgreSQL)..."
 python manage.py migrate --noinput
 
+echo ">>> Building Matplotlib font cache..."
+python -c "import matplotlib.pyplot"
+
 echo ">>> Build complete!"
