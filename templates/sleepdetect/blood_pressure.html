@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow p-4">
+
+    <h3 class="text-center mb-3">🩸 Blood Pressure</h3>
+
+    <!-- SUBMIT DIRECTLY TO RESULT (OPTION 2) -->
+    <form method="post">
+
+      {% csrf_token %}
+
+      <div class="row mb-3">
+        <div class="col">
+          <input type="number"
+                 name="bp_systolic"
+                 class="form-control"
+                 placeholder="Systolic (e.g. 120)"
+                 min="90" max="200"
+                 required>
+        </div>
+
+        <div class="col">
+          <input type="number"
+                 name="bp_diastolic"
+                 class="form-control"
+                 placeholder="Diastolic (e.g. 80)"
+                 min="60" max="130"
+                 required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success w-100">
+        Finish → View Result
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+    /* Basic Chatbot Styling */
+    .chat-container {
+        max-width: 600px;
+        margin: 2rem auto;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .chat-header {
+        background: #4A90E2;
+        color: white;
+        padding: 15px;
+        border-radius: 12px 12px 0 0;
+        text-align: center;
+        font-weight: bold;
+    }
+    .chat-history {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .message {
+        max-width: 80%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        line-height: 1.4;
+    }
+    .message.bot {
+        background: #f1f0f0;
+        align-self: flex-start;
+        border-bottom-left-radius: 2px;
+    }
+    .message.user {
+        background: #4A90E2;
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 2px;
+    }
+    .chat-input-area {
+        display: flex;
+        padding: 15px;
+        border-top: 1px solid #ddd;
+        gap: 10px;
+    }
+    .chat-input-area input {
+        flex-grow: 1;
+        padding: 10px 15px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        outline: none;
+    }
+    .chat-input-area button {
+        background: #4A90E2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .chat-input-area button:hover {
+        background: #357ABD;
+    }
+    .typing-indicator {
+        font-style: italic;
+        color: #888;
+    }
+</style>
+
+<div class="chat-container">
+    <div class="chat-header">
+        💤 Sleep Health Assistant
+    </div>
+    
+    <div class="chat-history" id="chat-history">
+        <div class="message bot">
+            Hello! I've reviewed your sleep prediction. How can I help you understand your results or improve your sleep today?
+        </div>
+    </div>
+
+    <form class="chat-input-area" id="chat-form">
+        {% csrf_token %}
+        <input type="text" id="user-input" placeholder="Type your message here..." autocomplete="off" required>
+        <button type="submit" id="send-btn">Send</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const chatForm = document.getElementById("chat-form");
+        const chatHistory = document.getElementById("chat-history");
+        const userInput = document.getElementById("user-input");
+        const sendBtn = document.getElementById("send-btn");
+
+        // Helper function to extract Django's CSRF token from the cookie
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Helper function to add a message to the UI
+        function appendMessage(sender, text) {
+            const msgDiv = document.createElement("div");
+            msgDiv.classList.add("message", sender);
+            
+            // Basic formatting: convert line breaks and **bold** text (Groq uses Markdown)
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // Bold
+                .replace(/\n/g, "<br>"); // Line breaks
+                
+            msgDiv.innerHTML = formattedText;
+            chatHistory.appendChild(msgDiv);
+            
+            // Auto-scroll to the bottom
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+            return msgDiv;
+        }
+
+        chatForm.addEventListener("submit", async (e) => {
+            e.preventDefault(); // Prevent page reload
+            
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // 1. Show user message
+            appendMessage("user", message);
+            userInput.value = "";
+            userInput.disabled = true; // Lock input while waiting
+            sendBtn.disabled = true;
+
+            // 2. Show a temporary "Typing..." indicator
+            const typingIndicator = appendMessage("bot", "<span class='typing-indicator'>Thinking...</span>");
+
+            try {
+                // 3. Prepare the data
+                const formData = new URLSearchParams();
+                formData.append("message", message);
+                
+                const csrftoken = getCookie('csrftoken');
+
+                // 4. Send the request to your Django view
+                // NOTE: Make sure this URL matches exactly what is in your urls.py
+                const response = await fetch(window.location.href, { 
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": csrftoken,
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: formData.toString()
+                });
+
+                const data = await response.json();
+
+                // 5. Remove typing indicator and show the real reply
+                typingIndicator.remove();
+                appendMessage("bot", data.reply);
+
+            } catch (error) {
+                console.error("Error:", error);
+                typingIndicator.remove();
+                appendMessage("bot", "<em>Sorry, I lost my connection to the server. Please try again.</em>");
+            } finally {
+                // Unlock the input field
+                userInput.disabled = false;
+                sendBtn.disabled = false;
+                userInput.focus();
+            }
+        });
+    });
+</script>
+{% endblock %}

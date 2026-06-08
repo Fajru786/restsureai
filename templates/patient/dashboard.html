@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Patient Dashboard | RestSure AI{% endblock %}
+
+{% block content %}
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, #8E9AEF, #A0C4FF);
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 40px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .hero-text h2 {
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .hero-text p {
+    opacity: 0.95;
+    font-size: 1.05rem;
+  }
+
+  .hero-image img {
+    max-width: 280px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  }
+
+  .sleep-tips {
+    background: rgba(255,255,255,0.18);
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 25px;
+  }
+
+  .sleep-tips h5 {
+    margin-bottom: 15px;
+  }
+
+  .sleep-tips li {
+    margin-bottom: 8px;
+  }
+
+  .action-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .action-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+
+  @media (max-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+    .hero-image {
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<!-- HERO SECTION -->
+<div class="hero-section">
+  <div class="hero-grid">
+
+    <!-- LEFT -->
+    <div class="hero-text">
+      <h2>Welcome, {{ request.user.username }}</h2>
+      <p>
+        Your personalized sleep wellness dashboard powered by
+        <strong>RestSure AI</strong>.
+        Track, predict, and improve your sleep health gently and intelligently.
+      </p>
+
+      <div class="sleep-tips">
+        <h5>🌙 Sleep Well Tips</h5>
+        <ul class="mb-0">
+          <li>Maintain a consistent sleep schedule</li>
+          <li>Avoid screens before bedtime</li>
+          <li>Create a calm sleeping environment</li>
+          <li>Get 7–9 hours of sleep daily</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-image text-center">
+      <img src="{% static 'images/login.jpg' %}" alt="Sleep Wellness">
+    </div>
+
+  </div>
+</div>
+
+<!-- ACTION CARDS -->
+<div class="row g-4">
+
+  <!-- 🔥 FIXED BUTTON -->
+  <div class="col-md-4">
+    <div class="card action-card shadow-sm p-4 h-100">
+      <h5>🌙 Sleep Disorder Prediction</h5>
+      <p class="text-muted">
+        Analyze your sleep parameters using AI-based detection.
+      </p>
+      <a href="{% url 'step1_basic' %}" class="btn btn-dark w-100">
+
+        🧠 Start Prediction
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card action-card shadow-sm p-4 h-100">
+      <h5>📊 Analytics Dashboard</h5>
+      <p class="text-muted">
+        View charts and visual insights related to sleep health.
+      </p>
+      <a href="{% url 'analytics_dashboard' %}" class="btn btn-dark w-100">
+        View Dashboard
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card action-card shadow-sm p-4 h-100">
+      <h5>👤 Profile</h5>
+      <p class="text-muted">
+        View and manage your account details.
+      </p>
+      <a href="{% url 'profile' %}" class="btn btn-dark w-100">
+        Profile
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

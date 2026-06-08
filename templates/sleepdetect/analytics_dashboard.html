@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% block title %}Analytics Dashboard | RestSure AI{% endblock %}
+
+{% block content %}
+<style>
+    .card-yellow { background-color: #fff3cd; }
+    .card-green { background-color: #d1e7dd; }
+    .card-white { background-color: #ffffff; }
+    .card-red { background-color: #f8d7da; }
+</style>
+<div class="container-fluid px-4 py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Your Sleep & Health Report</h3>
+            <p class="text-muted mb-0">Based on your latest assessment</p>
+        </div>
+        <span class="badge bg-primary px-3 py-2 fs-6">
+            {{ date_recorded|date:"d M Y"|default:"Latest Entry" }}
+        </span>
+    </div>
+
+    <h5 class="fw-semibold mb-3">Vitals & Lifestyle Metrics</h5>
+    <div class="row g-3 mb-4">
+        
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card shadow-sm h-100 p-3 text-center border-0 {% if bmi == 0 %}card-yellow{% elif bmi == 1 %}card-green{% elif bmi == 2 %}card-white{% elif bmi == 3 %}card-red{% else %}card-white{% endif %}">
+                <span class="text-muted small fw-bold text-uppercase mb-1">BMI Category</span>
+                <h3 class="fw-bold mb-0 text-dark">
+                    {% if bmi == 0 %}Underweight
+                    {% elif bmi == 1 %}Healthy
+                    {% elif bmi == 2 %}Overweight
+                    {% elif bmi == 3 %}Obese
+                    {% else %}--{% endif %}
+                </h3>
+                <div class="mt-2 small fw-bold text-dark opacity-75">
+                    {% if bmi == 0 %}Below Average
+                    {% elif bmi == 1 %}Optimal Range
+                    {% elif bmi == 2 %}Above Average
+                    {% elif bmi == 3 %}High Risk
+                    {% else %}N/A{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card shadow-sm h-100 p-3 text-center border-0 {% if physical_activity >= 6 %}card-green{% else %}card-red{% endif %}">
+                <span class="text-muted small fw-bold text-uppercase mb-1">Activity Level</span>
+                <h3 class="fw-bold mb-0 text-dark">{{ physical_activity|default:"--" }}<span class="fs-6 text-muted fw-normal">/10</span></h3>
+                <div class="mt-2 small fw-bold text-dark opacity-75">
+                    {% if physical_activity >= 6 %}Good Activity
+                    {% else %}Insufficient{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card shadow-sm h-100 p-3 text-center border-0 {% if sleep_quality >= 6 %}card-green{% else %}card-red{% endif %}">
+                <span class="text-muted small fw-bold text-uppercase mb-1">Sleep Quality</span>
+                <h3 class="fw-bold mb-0 text-dark">{{ sleep_quality|default:"--" }}<span class="fs-6 text-muted fw-normal">/10</span></h3>
+                <div class="mt-2 small fw-bold text-dark opacity-75">
+                    {% if sleep_quality >= 6 %}Restful
+                    {% else %}Poor Quality{% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card shadow-sm h-100 p-3 text-center border-0 {% if stress_level >= 7 %}card-red{% elif stress_level >= 4 %}card-yellow{% else %}card-green{% endif %}">
+                <span class="text-muted small fw-bold text-uppercase mb-1">Stress Level</span>
+                <h3 class="fw-bold mb-0 text-dark">{{ stress_level|default:"--" }}<span class="fs-6 text-muted fw-normal">/10</span></h3>
+                <div class="mt-2 small fw-bold text-dark opacity-75">
+                    {% if stress_level >= 7 %}High Stress
+                    {% elif stress_level >= 4 %}Moderate
+                    {% else %}Optimal (Low){% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card shadow-sm h-100 p-3 text-center border-0 {% if heart_rate >= 60 and heart_rate <= 100 %}card-green{% else %}card-red{% endif %}">
+                <span class="text-muted small fw-bold text-uppercase mb-1">Heart Rate</span>
+                <h3 class="fw-bold mb-0 text-dark">{{ heart_rate|default:"--" }} <span class="fs-6 text-muted fw-normal">bpm</span></h3>
+                <div class="mt-2 small fw-bold text-dark opacity-75">
+                    {% if heart_rate < 60 %}Low (Bradycardia)
+                    {% elif heart_rate <= 100 %}Normal Range
+                    {% else %}High (Tachycardia){% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-4 col-lg-2">
+            <div class="card shadow-sm h-100 p-3 text-center border-0 {% if bp_systolic <= 130 %}card-green{% else %}card-red{% endif %}">
+                <span class="text-muted small fw-bold text-uppercase mb-1">Blood Pressure</span>
+                <h3 class="fw-bold mb-0 text-dark">{{ bp_systolic|default:"--" }} <span class="fs-6 text-muted fw-normal">sys</span></h3>
+                <div class="mt-2 small fw-bold text-dark opacity-75">
+                    {% if bp_systolic <= 120 %}Optimal
+                    {% elif bp_systolic <= 130 %}Slightly Elevated
+                    {% else %}High (Hypertension){% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+        
+        <div class="col-lg-8">
+            <div class="card shadow-sm p-4 h-100 border-0">
+                <h5 class="fw-semibold mb-4">RestSure AI Prediction Analysis</h5>
+                
+                <div class="row">
+                    <div class="{% if prediction == 'No Sleep Disorder' or prediction == 'Normal' or prediction == 'None' %}col-12{% else %}col-md-6{% endif %} mb-4 mb-md-0">
+                        <div class="p-3 bg-light rounded h-100 d-flex flex-column justify-content-between">
+                            <div>
+                                <h6 class="text-muted mb-2">Predicted Disorder</h6>
+                                <h3 class="{% if prediction == 'None' or prediction == 'Normal' or prediction == 'No Sleep Disorder' %}text-success{% else %}text-danger{% endif %} fw-bold">
+                                    {{ prediction|default:"No prediction available" }}
+                                </h3>
+                                
+                                {% if prediction != 'None' and prediction != 'Normal' and prediction != 'No Sleep Disorder' and prediction %}
+                                    <p class="small text-muted mt-2 mb-0">
+                                        <i class="bi bi-info-circle"></i> We recommend discussing these results with a healthcare provider.
+                                    </p>
+                                {% else %}
+                                    <p class="small text-success mt-2 mb-0">
+                                        <i class="bi bi-check-circle"></i> Your metrics look great. Keep up the healthy sleep habits!
+                                    </p>
+                                {% endif %}
+                            </div>
+                            
+                            <a href="{% url 'ai_chatbot' %}" class="btn btn-outline-primary mt-4 px-4 fw-bold">
+                                🤖 Ask AI about my result
+                            </a>
+                        </div>
+                    </div>
+                    
+                    {% if prediction != 'No Sleep Disorder' and prediction != 'Normal' and prediction != 'None' %}
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-3">Identified Risk Factors</h6>
+                        <ul class="list-group list-group-flush">
+                            {% for r in risk_factors %}
+                                <li class="list-group-item bg-transparent px-0 py-2 border-bottom-0">
+                                    <span class="text-danger me-2">▪</span> {{ r }}
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item bg-transparent px-0 text-success">
+                                    <span class="me-2">✓</span> No major risks detected
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm p-4 h-100 text-center border-0">
+                <h5 class="fw-semibold mb-2">Overall Sleep Health</h5>
+                <p class="text-muted small mb-4">Calculated from your quality inputs</p>
+                
+                <div class="d-flex justify-content-center">
+                    <div style="width: 200px; height: 200px; position: relative;">
+                        <canvas id="scoreChart" data-sleep-score="{{ sleep_score|default:0 }}"></canvas>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <h2 class="fw-bold mb-0">{{ sleep_score|default:0 }}%</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    /* Score Gauge Setup */
+    var scoreChartElement = document.getElementById('scoreChart');
+    var sleepScore = parseInt(scoreChartElement.getAttribute('data-sleep-score'), 10) || 0;
+    
+    // Determine color based on score
+    var chartColor = '#4CAF50'; // Green for good
+    if (sleepScore < 50) chartColor = '#F44336'; // Red for bad
+    else if (sleepScore < 75) chartColor = '#FFC107'; // Yellow for average
+
+    new Chart(scoreChartElement, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [sleepScore, 100 - sleepScore],
+                backgroundColor: [chartColor, '#e9ecef'],
+                borderWidth: 0,
+                borderRadius: 5
+            }]
+        },
+        options: {
+            cutout: '80%',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { 
+                legend: { display: false },
+                tooltip: { enabled: false }
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

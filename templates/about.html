@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About | RestSure AI{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<div class="text-center mb-5">
+    <h1 class="fw-bold">About RestSure AI</h1>
+    <p class="text-muted">Human-Centric Sleep Wellness Companion</p>
+</div>
+
+<!-- SECTION 1: PROJECT INTRO -->
+<div class="row align-items-center mb-5">
+    <div class="col-md-6 text-center">
+        <img src="{% static 'images/sleep.jpg' %}" class="img-fluid rounded-4 shadow"
+             alt="Sleep Image" style="width: 300px;">
+    </div>
+
+    <div class="col-md-6">
+        <h3 class="fw-semibold">What is RestSure AI?</h3>
+        <p style="text-align: justify;">
+            RestSure AI is an intelligent sleep wellness system designed to analyze patterns,
+            detect early signs of sleep disorders, and provide meaningful insights for a healthier
+            lifestyle. Using AI-driven analysis, the system evaluates user data such as sleep
+            duration, stress level, and daily activity to predict possible disorders like insomnia,
+            sleep apnea, and irregular sleep cycles.
+        </p>
+        <p style="text-align: justify;">
+            Our mission is to empower individuals with knowledge about their sleep health using
+            modern technology and clear, insightful visual dashboards.
+        </p>
+    </div>
+</div>
+
+<!-- SECTION 2: WHY THIS PROJECT -->
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-3">Why Sleep Disorder Detection?</h3>
+
+    <p class="text-center mx-auto" style="max-width: 750px; text-align: justify;">
+        Sleep disorders affect millions of people globally and often go unnoticed. Poor sleep impacts 
+        mental health, physical health, immunity, productivity, and overall well-being. With the rise of 
+        wearables and digital health monitoring, Artificial Intelligence now plays a major role in 
+        identifying sleep-related anomalies.
+        <br><br>
+        RestSure AI aims to provide early warning signs so users can improve their sleep quality and 
+        seek medical help when necessary.
+    </p>
+</div>
+
+<!-- SECTION 3: SIGNS & SYMPTOMS (WITH ICONS) -->
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">Signs & Symptoms of Sleep Disorders</h3>
+
+    <p class="text-center text-muted mx-auto mb-4" style="max-width: 750px; text-align: justify;">
+        Many sleep disorders go unnoticed, but they reveal themselves through certain patterns in 
+        lifestyle and sleep behavior. RestSure AI highlights these patterns using your sleep data 
+        to help you understand your sleep health better.
+    </p>
+
+    <div class="row justify-content-center">
+
+        <!-- Symptom 1 -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 text-center h-100">
+                <i class="bi bi-moon-stars fs-1 mb-2"></i>
+                <h6 class="fw-bold">Difficulty Sleeping</h6>
+                <p class="text-muted small">Trouble falling asleep or staying asleep at night.</p>
+            </div>
+        </div>
+
+        <!-- Symptom 2 -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 text-center h-100">
+                <i class="bi bi-emoji-dizzy fs-1 mb-2"></i>
+                <h6 class="fw-bold">Excessive Daytime Sleepiness</h6>
+                <p class="text-muted small">Feeling unusually tired or drowsy during the day.</p>
+            </div>
+        </div>
+
+        <!-- Symptom 3 -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 text-center h-100">
+                <i class="bi bi-volume-up fs-1 mb-2"></i>
+                <h6 class="fw-bold">Loud Snoring / Breathing Issues</h6>
+                <p class="text-muted small">Noisy sleep, pauses in breathing – possible sleep apnea.</p>
+            </div>
+        </div>
+
+        <!-- Symptom 4 -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 text-center h-100">
+                <i class="bi bi-arrow-repeat fs-1 mb-2"></i>
+                <h6 class="fw-bold">Irregular Sleep Patterns</h6>
+                <p class="text-muted small">Frequent waking up or inconsistent sleep schedules.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="text-center mt-3 text-muted small" style="max-width: 800px; margin: auto;">
+        RestSure AI intelligently analyzes these indicators to provide early detection, personalized
+        insights, and sleep wellness support for a healthier lifestyle.
+    </p>
+</div>
+
+<!-- SECTION 4: TECHNOLOGIES USED -->
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">Technologies Used</h3>
+
+    <div class="row text-center">
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>Django</h5>
+                <p class="text-muted small">Web framework for routing & integration.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>HTML & CSS</h5>
+                <p class="text-muted small">Structure and visual styling of UI.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>Bootstrap 5</h5>
+                <p class="text-muted small">Responsive layout & components.</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3">
+                <h5>Machine Learning</h5>
+                <p class="text-muted small">(Future) Sleep disorder prediction engine.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- SECTION 6: CONTACT BUTTON -->
+<div class="text-center mb-5">
+    <a href="{% url 'contact' %}" class="btn btn-dark btn-lg px-4">Contact Us</a>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% block title %}Register | RestSure AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+
+    <div class="card shadow-sm p-4 bg-white">
+      <h3 class="text-center mb-3">Create Account</h3>
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email Address</label>
+          <input type="email" name="email" class="form-control" required placeholder="For OTP verification">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" name="confirm_password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100 mt-2">
+          Send Verification Code
+        </button>
+
+        </form> <div class="text-center mt-4">
+    <p class="text-muted">Or sign in with</p>
+    
+    <form action="{% provider_login_url 'google' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-dark w-100 shadow-sm py-2" style="border-radius: 50px; font-weight: 500;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width: 20px; margin-right: 10px; margin-bottom: 2px;">
+            Continue with Google
+        </button>
+    </form>
+</div>
+      </form>
+
+        <p class="text-center mt-3">
+          Already have an account?
+          <a href="{% url 'login' %}">Login</a>
+        </p>
+      </form>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

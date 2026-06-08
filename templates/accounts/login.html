@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+{% block title %}Login | RestSure AI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+
+    <div class="card shadow-sm p-4 bg-white">
+      <h3 class="text-center mb-3">Login</h3>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            placeholder="Enter your username"
+            required
+          >
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter password"
+            required
+          >
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100 mt-2">
+          Login
+        </button>
+
+        
+    </form>
+    <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    
+    
+</form> <div class="text-center mt-4">
+    <p class="text-muted">Or sign in with</p>
+    
+    <form action="{% provider_login_url 'google' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-dark w-100 shadow-sm py-2" style="border-radius: 50px; font-weight: 500;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" style="width: 20px; margin-right: 10px; margin-bottom: 2px;">
+            Continue with Google
+        </button>
+    </form>
+</div>
+      </form>
+
+      <p class="text-center mt-3">
+        Don't have an account?
+        <a href="{% url 'register' %}">Register</a>
+      </p>
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}

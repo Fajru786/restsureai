@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Profile | RestSure AI{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="card shadow-sm p-4">
+      <h3 class="mb-3 text-center">
+        <i class="bi bi-person-circle me-2"></i>
+        My Profile
+      </h3>
+
+      <table class="table table-bordered">
+        <tr>
+          <th>Username</th>
+          <td>{{ request.user.username }}</td>
+        </tr>
+
+        <tr>
+          <th>Email</th>
+          <td>{{ request.user.email }}</td>
+        </tr>
+
+        <tr>
+          <th>Date Joined</th>
+          <td>{{ request.user.date_joined|date:"d M Y" }}</td>
+        </tr>
+
+        <tr>
+          <th>Last Login</th>
+          <td>{{ request.user.last_login|date:"d M Y, h:i A" }}</td>
+        </tr>
+      </table>
+
+      <a href="{% url 'patient_dashboard' %}" class="btn btn-dark w-100">
+        Back to Dashboard
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow p-4">
+
+    <h3 class="text-center mb-3">❤️ Heart Rate</h3>
+
+    <p class="text-muted">
+      Sit calmly for 5 minutes. Count your pulse for 15 seconds and multiply by 4.
+    </p>
+
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label">Heart Rate (BPM)</label>
+        <input type="number" name="heart_rate"
+               class="form-control"
+               placeholder="Example: 72"
+               min="40" max="150" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">
+        Next → Blood Pressure
+      </button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

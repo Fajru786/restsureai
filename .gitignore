@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+env/
+venv/
+.venv/
+
+# Django
+*.sqlite3
+staticfiles/
+media/
+
+# Environment & Secrets
+.env
+.env.local
+
+# Elastic Beanstalk (no longer needed)
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+.ebextensions/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Unused ML models (saves ~410 MB in deploy)
+sleep_predictor/ml/hard_voting.pkl
+sleep_predictor/ml/rf_model.pkl
+sleep_predictor/ml/shap_explainer.pkl
+sleep_predictor/ml/ann_model.pkl
+sleep_predictor/ml/ensemble_model.pkl
+sleep_predictor/ml/model.pkl
+sleep_predictor/ml/dt_model.pkl
+sleep_predictor/ml/knn_model.pkl
+sleep_predictor/ml/lr_model.pkl
+sleep_predictor/ml/svm_model.pkl
+sleep_predictor/ml/xgb_model.pkl

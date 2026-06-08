@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Prediction Result | RestSure AI{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<style>
+
+.result-card {
+
+  max-width: 900px;
+
+  margin: auto;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+
+}
+
+
+
+.result-image {
+
+  background: linear-gradient(135deg, #6f7de1, #8fa3ff);
+
+  padding: 30px;
+
+  text-align: center;
+
+}
+
+
+
+.result-image img {
+
+  max-width: 280px;
+
+  width: 100%;
+
+  border-radius: 18px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+
+}
+
+
+
+.result-content {
+
+  padding: 35px;
+
+  background: #ffffff;
+
+}
+
+
+
+.result-badge {
+
+  display: inline-block;
+
+  padding: 8px 18px;
+
+  border-radius: 30px;
+
+  font-weight: 600;
+
+  margin-bottom: 15px;
+
+}
+
+
+
+.badge-safe {
+
+  background: #e6f7ef;
+
+  color: #1b7a4a;
+
+}
+
+
+
+.badge-warning {
+
+  background: #fff4e5;
+
+  color: #b26a00;
+
+}
+
+
+
+.badge-danger {
+
+  background: #fdecea;
+
+  color: #b3261e;
+
+}
+
+
+
+.explain-box {
+
+  background: #f8f9ff;
+
+  border-left: 5px solid #6f7de1;
+
+  padding: 18px;
+
+  border-radius: 10px;
+
+  margin-top: 20px;
+
+  text-align: left;
+
+}
+
+</style>
+
+
+
+<div class="result-card mt-5 mb-5">
+
+
+
+  <div class="result-image">
+
+    <img src="{% static 'images/sleep_results.jpg' %}" alt="Sleep Result">
+
+  </div>
+
+
+
+  <div class="result-content text-center">
+
+
+
+    {% if prediction == "No Sleep Disorder" or prediction == "Normal" or prediction == "None" %}
+
+      <span class="result-badge badge-safe">No Sleep Disorder Detected</span>
+
+      <h3 class="fw-bold mt-2">Great News! 🎉</h3>
+
+      <p class="text-muted mt-3">
+
+        Our AI model did not detect any signs of sleep disorders.
+
+        Your sleep pattern appears healthy.
+
+      </p>
+
+    {% elif prediction == "Insomnia" %}
+
+      <span class="result-badge badge-warning">Insomnia Detected</span>
+
+      <h3 class="fw-bold mt-2">Sleep Attention Needed 😴</h3>
+
+      <p class="text-muted mt-3">
+
+        The model indicates signs of insomnia, which may affect
+
+        your sleep quality and daily energy levels.
+
+      </p>
+
+    {% elif prediction == "Sleep Apnea" %}
+
+      <span class="result-badge badge-danger">Sleep Apnea Detected</span>
+
+      <h3 class="fw-bold mt-2">Medical Attention Recommended ⚠️</h3>
+
+      <p class="text-muted mt-3">
+
+        The model detected possible symptoms of sleep apnea.
+
+        Please consider consulting a medical professional.
+
+      </p>
+
+    {% else %}
+
+      <span class="result-badge badge-warning">Result: {{ prediction }}</span>
+
+      <h3 class="fw-bold mt-2">Sleep Disorder Detected</h3>
+
+      <p class="text-muted mt-3">
+
+        The model detected <strong>{{ prediction }}</strong>.
+
+        If you're concerned, consult a medical professional.
+
+      </p>
+
+    {% endif %}
+
+
+
+    {% if prediction != "No Sleep Disorder" and prediction != "Normal" and prediction != "None" %}
+
+    <div class="explain-box">
+
+      <h5 class="fw-semibold">Your risk is high because:</h5>
+
+      <ul class="mb-0">
+
+        {% for factor in risk_factors %}
+
+          <li>{{ factor }}</li>
+
+        {% endfor %}
+
+      </ul>
+
+    </div>
+
+    {% endif %}
+
+
+
+    {% if shap_graph %}
+
+      {% if "ERROR:" in shap_graph %}
+
+        <div class="alert alert-danger mt-4 text-start">
+
+          <h5 class="fw-bold">SHAP Graph Failed to Generate:</h5>
+
+          <code>{{ shap_graph }}</code>
+
+        </div>
+
+      {% else %}
+
+        <div class="explain-box mt-4 border-0 shadow-sm" style="background: #ffffff; border: 1px solid #e0e0e0;">
+
+          <h5 class="fw-semibold mb-2 text-center text-primary">🧠 AI Decision Breakdown</h5>
+
+         
+
+          <p class="text-muted small text-center mb-2">
+
+            <strong>How to read this chart:</strong> Red bars (pointing right) pushed the AI <em>towards</em> predicting {{ prediction }}, while blue bars (pointing left) pushed against it.
+
+          </p>
+
+         
+
+          <div class="alert alert-info text-center py-2 mb-3" style="font-size: 0.95rem;">
+
+            💡 {{ shap_text|safe }}
+
+          </div>
+
+
+
+          <div class="text-center">
+
+            <img src="data:image/png;base64,{{ shap_graph }}" alt="SHAP AI Explanation Graph" class="img-fluid rounded" style="max-width: 100%;">
+
+          </div>
+
+        </div>
+
+      {% endif %}
+
+    {% endif %}
+
+
+
+    <div class="mt-4">
+
+        <a href="{% url 'analytics_dashboard' %}"
+
+           class="btn btn-outline-primary mt-3 px-4 me-2">
+
+           📊 View Analytics Dashboard
+
+        </a>
+
+
+
+        <a href="{% url 'ai_chatbot' %}"
+
+           class="btn btn-outline-primary mt-3 px-4 me-2">
+
+           🤖 Ask AI about my result
+
+        </a>
+
+
+
+        <a href="{% url 'patient_dashboard' %}" class="btn btn-dark mt-3 px-4">
+
+           Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}

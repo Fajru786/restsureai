@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sleep Disorders | RestSure AI{% endblock %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+    <h1 class="fw-bold">Understanding Sleep Disorders</h1>
+    <p class="text-muted mx-auto" style="max-width: 720px;">
+        Learn what sleep is, why sleep disorders matter, their causes, symptoms,
+        and how RestSure AI helps in early detection and awareness.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-3">What Is Sleep?</h3>
+    <p class="mx-auto text-muted" style="max-width: 800px; text-align: justify;">
+        Sleep is a natural and essential biological process during which the brain and body
+        remain active while restoring energy, supporting learning and memory, and maintaining
+        overall health. During sleep, the brain cycles through different stages of non-rapid eye
+        movement (non-REM) and rapid eye movement (REM) sleep.
+        <br><br>
+        Both the <strong>duration</strong> and <strong>quality</strong> of sleep are important.
+        Interrupted or poor-quality sleep can affect physical health, emotional well-being,
+        concentration, and daily functioning.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold mb-3 text-center">Why Sleep Disorders Matter</h3>
+    <p class="mx-auto text-muted" style="max-width: 800px; text-align: justify;">
+        Sleep disorders are conditions that disturb normal sleep patterns, affecting how well,
+        how long, and when you sleep. Many people live with undiagnosed sleep problems that
+        negatively impact mood, productivity, immunity, and long-term health.
+        <br><br>
+        RestSure AI provides a digital and data-driven approach to help identify early risk
+        patterns related to sleep disorders.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">Common Types of Sleep Disorders</h3>
+
+    <div class="row">
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm p-3 h-100 border-0">
+                <h5><i class="bi bi-moon fs-4 me-2 text-primary"></i>Insomnia</h5>
+                <p class="text-muted small">
+                    Difficulty falling asleep, staying asleep, or waking up too early.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>Takes more than 30 minutes to fall asleep</li>
+                    <li>Frequent night awakenings</li>
+                    <li>Feeling tired after waking</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm p-3 h-100 border-0">
+                <h5><i class="bi bi-bandaid fs-4 me-2 text-danger"></i>Sleep Apnea</h5>
+                <p class="text-muted small">
+                    A breathing-related disorder where airflow stops repeatedly during sleep.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>Loud snoring</li>
+                    <li>Breathing pauses during sleep</li>
+                    <li>Daytime sleepiness</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm p-3 h-100 border-0">
+                <h5><i class="bi bi-activity fs-4 me-2 text-warning"></i>Restless Leg Syndrome</h5>
+                <p class="text-muted small">
+                    A neurological condition causing an uncontrollable urge to move your legs.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>Creeping, crawling, or tingling sensations</li>
+                    <li>Symptoms worsen in the evening or at night</li>
+                    <li>Relief temporarily achieved by moving or stretching</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm p-3 h-100 border-0">
+                <h5><i class="bi bi-battery-half fs-4 me-2 text-info"></i>Narcolepsy</h5>
+                <p class="text-muted small">
+                    A chronic disorder that affects the brain's ability to control sleep-wake cycles.
+                </p>
+                <ul class="small text-muted mb-0">
+                    <li>Overwhelming daytime drowsiness</li>
+                    <li>Sudden, uncontrollable sleep attacks</li>
+                    <li>Sleep paralysis or sudden loss of muscle control</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">What Causes Sleep Disorders?</h3>
+
+    <div class="row text-center">
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-heart-pulse fs-2 mb-2"></i>
+                <p class="text-muted small">Medical conditions such as heart, lung, or nerve disorders</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-emoji-frown fs-2 mb-2"></i>
+                <p class="text-muted small">Mental health issues like stress, anxiety, and depression</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-cup-hot fs-2 mb-2"></i>
+                <p class="text-muted small">Caffeine, alcohol, or medication use</p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-hourglass-split fs-2 mb-2"></i>
+                <p class="text-muted small">Irregular schedules and aging</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">Common Symptoms</h3>
+
+    <ul class="list-group list-group-flush mx-auto" style="max-width: 750px;">
+        <li class="list-group-item">Frequent difficulty falling or staying asleep</li>
+        <li class="list-group-item">Daytime fatigue or excessive sleepiness</li>
+        <li class="list-group-item">Snoring, gasping, or choking during sleep</li>
+        <li class="list-group-item">Tingling or urge to move legs at night</li>
+        <li class="list-group-item">Temporary inability to move when waking up</li>
+    </ul>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-3">How Are Sleep Disorders Diagnosed?</h3>
+    <p class="mx-auto text-muted" style="max-width: 800px; text-align: justify;">
+        Diagnosis often involves reviewing medical history, sleep habits, and physical examination.
+        In some cases, a sleep study (polysomnogram) is conducted to monitor brain activity,
+        breathing patterns, heart rate, and muscle movements during sleep.
+    </p>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">Treatment & Management</h3>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-check-circle fs-2 mb-2"></i>
+                <p class="text-muted small">Healthy sleep habits and lifestyle changes</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-lightbulb fs-2 mb-2"></i>
+                <p class="text-muted small">Therapy and relaxation techniques</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-hospital fs-2 mb-2"></i>
+                <p class="text-muted small">Medical devices or short-term medication</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-5">
+    <h3 class="fw-semibold text-center mb-4">How RestSure AI Supports Sleep Wellness</h3>
+
+    <div class="row justify-content-center text-center">
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-bar-chart-line fs-1 mb-2"></i>
+                <h6 class="fw-bold">Pattern Analysis</h6>
+                <p class="text-muted small">
+                    Analyzes sleep duration, age, stress, and lifestyle indicators.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-exclamation-triangle fs-1 mb-2"></i>
+                <h6 class="fw-bold">Early Detection</h6>
+                <p class="text-muted small">
+                    Identifies possible sleep disorder risk at early stages.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm p-3 h-100">
+                <i class="bi bi-heart-pulse fs-1 mb-2"></i>
+                <h6 class="fw-bold">Awareness & Guidance</h6>
+                <p class="text-muted small">
+                    Encourages better sleep habits and medical consultation.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mb-5">
+    <a href="{% url 'contact' %}" class="btn btn-dark btn-lg px-4">
+        Talk to Us About RestSure AI
+    </a>
+</div>
+
+{% endblock %}

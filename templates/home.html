@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}RestSure AI | Sleep Wellness Assistant{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO SECTION ================= -->
+<style>
+  .hero-bg {
+    background-image: url("{% static 'images/home1.jpg' %}");
+    background-size: cover;
+    background-position: center center;
+    min-height: 80vh;          /* 🔥 THIS is the key */
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      to right,
+      rgba(60, 70, 150, 0.85),
+      rgba(60, 70, 150, 0.55)
+    );
+    min-height: 80vh;          /* 🔥 MATCH HEIGHT */
+    padding: 80px 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  
+</style>
+
+
+<div class="hero-bg mb-5">
+  <div class="hero-overlay">
+    <div class="row align-items-center">
+
+      <!-- LEFT TEXT -->
+      <div class="col-md-6">
+        <h1 class="fw-bold mb-3">RestSure AI</h1>
+        <p class="mb-4" style="text-align: justify;">
+          RestSure AI is your intelligent companion for understanding sleep health.
+          By analyzing sleep duration, stress levels, and lifestyle patterns, our system
+          helps detect early signs of sleep disorders and encourages healthier sleep habits.
+        </p>
+        <a href="{% url 'about' %}" class="btn btn-light btn-lg me-2">
+          Learn More
+        </a>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= WHY SLEEP MATTERS ================= -->
+<div class="text-center my-5">
+  <h3 class="fw-bold">Why Sleep Health Matters</h3>
+  <p class="text-muted mx-auto" style="max-width: 850px;">
+    Quality sleep is essential for both physical and mental well-being.
+    Poor sleep can lead to stress, reduced concentration, mood changes,
+    and long-term health issues. RestSure AI focuses on early detection
+    of sleep-related risks so users can take timely action.
+  </p>
+</div>
+
+<!-- ================= HOW RESTSURE AI WORKS ================= -->
+<div class="my-5">
+  <h3 class="fw-bold text-center mb-4">How RestSure AI Works</h3>
+
+  <div class="row text-center">
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-4 h-100">
+        <i class="bi bi-pencil-square fs-1 text-primary mb-3"></i>
+        <h5>Enter Your Details</h5>
+        <p class="text-muted small">
+          Users provide sleep-related information such as sleep duration,
+          stress level, BMI, heart rate, and daily activities.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-4 h-100">
+        <i class="bi bi-cpu fs-1 text-primary mb-3"></i>
+        <h5>AI Analysis</h5>
+        <p class="text-muted small">
+          Our machine learning model processes the data to identify
+          possible patterns and risks of sleep disorders.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm p-4 h-100">
+        <i class="bi bi-check-circle fs-1 text-primary mb-3"></i>
+        <h5>Get Results</h5>
+        <p class="text-muted small">
+          The system provides a clear prediction and insights to
+          help users improve their sleep quality.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= SYMPTOMS SECTION (YOUR CODE IMPROVED) ================= -->
+<div class="mb-5">
+  <h3 class="fw-semibold text-center mb-3">
+    Are You Experiencing Any of These?
+  </h3>
+
+  <p class="text-center text-muted mx-auto mb-4" style="max-width: 700px;">
+    Many people ignore sleep-related problems until they become serious.
+    Check if these signs feel familiar to you.
+  </p>
+
+  <div class="row justify-content-center text-center">
+
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 h-100">
+        <i class="bi bi-moon-stars fs-1 mb-2"></i>
+        <h6 class="fw-bold">Hard to Fall Asleep</h6>
+        <p class="text-muted small">
+          Difficulty falling asleep or waking frequently at night.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 h-100">
+        <i class="bi bi-emoji-frown fs-1 mb-2"></i>
+        <h6 class="fw-bold">Daytime Fatigue</h6>
+        <p class="text-muted small">
+          Feeling tired, sleepy, or lacking focus during the day.
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card shadow-sm p-3 h-100">
+        <i class="bi bi-volume-up fs-1 mb-2"></i>
+        <h6 class="fw-bold">Snoring Issues</h6>
+        <p class="text-muted small">
+          Loud snoring or breathing interruptions during sleep.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="text-center mt-3">
+    <a href="{% url 'sleep_disorders' %}" class="btn btn-dark btn-lg px-4">
+      Learn About Sleep Disorders
+    </a>
+  </div>
+</div>
+
+<!-- ================= KEY FEATURES ================= -->
+<div class="my-5 py-5 bg-light rounded-4">
+  <div class="container">
+
+    <!-- Heading -->
+    <h3 class="fw-bold text-center mb-5">Key Features</h3>
+
+    <!-- Features Grid -->
+    <div class="row justify-content-center">
+
+      <!-- Left Column -->
+      <div class="col-md-5">
+        <ul class="list-unstyled fs-5">
+
+          <li class="mb-4 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-3 fs-4"></i>
+            AI-powered prediction
+          </li>
+
+          <li class="mb-4 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-3 fs-4"></i>
+            Patient-specific dashboard
+          </li>
+
+          <li class="mb-4 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-3 fs-4"></i>
+            Simple and user-friendly UI
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-md-5">
+        <ul class="list-unstyled fs-5">
+
+          <li class="mb-4 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-3 fs-4"></i>
+            Secure login system
+          </li>
+
+          <li class="mb-4 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-3 fs-4"></i>
+            Visual analytics
+          </li>
+
+          <li class="mb-4 d-flex align-items-center">
+            <i class="bi bi-star-fill text-warning me-3 fs-4"></i>
+            Early health awareness
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= FINAL CTA ================= -->
+<div class="text-center my-5">
+  <h4 class="fw-bold mb-3">Start Your Journey Towards Better Sleep</h4>
+  <p class="text-muted mb-4">
+    Understand your sleep health and take control of your well-being with RestSure AI.
+  </p>
+  <a href="{% url 'login' %}" class="btn btn-dark btn-lg px-5">
+    Get Started
+  </a>
+</div>
+
+{% endblock %}

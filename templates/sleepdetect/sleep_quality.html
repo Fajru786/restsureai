@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  /* Hide the actual radio input visually, but keep it accessible */
+  input[type="radio"] {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Style the labels to look like buttons */
+  .custom-button {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  /* Highlight the selected button */
+  input[type="radio"]:checked + .custom-button {
+    background-color: #6f42c1;
+    color: white;
+    border-color: #6f42c1;
+  }
+
+  /* Hover effect */
+  .custom-button:hover {
+    background-color: #e9e9e9;
+  }
+
+  input[type="radio"]:checked + .custom-button:hover {
+    background-color: #5a32a3;
+  }
+
+  .question-card {
+    border-left: 5px solid #6f42c1;
+    padding: 15px;
+    margin-bottom: 18px;
+    background: #fbf9ff;
+    border-radius: 10px;
+  }
+
+  .selection-group {
+    margin-top: 10px;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+
+    <h3 class="text-center mb-3">😴 Sleep Quality Assessment</h3>
+    <p class="text-muted text-center mb-4">
+      Answer based on your sleep experience over the past week
+    </p>
+
+    <!-- ✅ SINGLE REAL FORM -->
+    <form method="post" id="sleepForm">
+      {% csrf_token %}
+
+      <!-- value sent to Django -->
+      <input type="hidden" name="sleep_quality" id="sleep_quality">
+
+      <!-- Q1 -->
+      <div class="question-card">
+        <strong>1. How satisfied are you with your sleep?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq1_1" name="q1" value="1" />
+          <label for="sq1_1" class="custom-button">Very Dissatisfied</label>
+
+          <input type="radio" id="sq1_2" name="q1" value="2" />
+          <label for="sq1_2" class="custom-button">Dissatisfied</label>
+
+          <input type="radio" id="sq1_3" name="q1" value="3" />
+          <label for="sq1_3" class="custom-button">Neutral</label>
+
+          <input type="radio" id="sq1_4" name="q1" value="4" />
+          <label for="sq1_4" class="custom-button">Satisfied</label>
+
+          <input type="radio" id="sq1_5" name="q1" value="5" />
+          <label for="sq1_5" class="custom-button">Very satisfied</label>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="question-card">
+        <strong>2. How long does it take you to fall asleep?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq2_1" name="q2" value="1" />
+          <label for="sq2_1" class="custom-button">More than 1 hour</label>
+
+          <input type="radio" id="sq2_2" name="q2" value="2" />
+          <label for="sq2_2" class="custom-button">45–60 minutes</label>
+
+          <input type="radio" id="sq2_3" name="q2" value="3" />
+          <label for="sq2_3" class="custom-button">30–45 minutes</label>
+
+          <input type="radio" id="sq2_4" name="q2" value="4" />
+          <label for="sq2_4" class="custom-button">15–30 minutes</label>
+
+          <input type="radio" id="sq2_5" name="q2" value="5" />
+          <label for="sq2_5" class="custom-button">Less than 15 minutes</label>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="question-card">
+        <strong>3. How often do you wake up during the night?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq3_1" name="q3" value="1" />
+          <label for="sq3_1" class="custom-button">Many times</label>
+
+          <input type="radio" id="sq3_2" name="q3" value="2" />
+          <label for="sq3_2" class="custom-button">Often</label>
+
+          <input type="radio" id="sq3_3" name="q3" value="3" />
+          <label for="sq3_3" class="custom-button">Sometimes</label>
+
+          <input type="radio" id="sq3_4" name="q3" value="4" />
+          <label for="sq3_4" class="custom-button">Rarely</label>
+
+          <input type="radio" id="sq3_5" name="q3" value="5" />
+          <label for="sq3_5" class="custom-button">Never</label>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="question-card">
+        <strong>4. Do you feel refreshed when you wake up?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq4_1" name="q4" value="1" />
+          <label for="sq4_1" class="custom-button">Never</label>
+
+          <input type="radio" id="sq4_2" name="q4" value="2" />
+          <label for="sq4_2" class="custom-button">Rarely</label>
+
+          <input type="radio" id="sq4_3" name="q4" value="3" />
+          <label for="sq4_3" class="custom-button">Sometimes</label>
+
+          <input type="radio" id="sq4_4" name="q4" value="4" />
+          <label for="sq4_4" class="custom-button">Often</label>
+
+          <input type="radio" id="sq4_5" name="q4" value="5" />
+          <label for="sq4_5" class="custom-button">Always</label>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="question-card">
+        <strong>5. How would you rate your sleep depth?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq5_1" name="q5" value="1" />
+          <label for="sq5_1" class="custom-button">Very light</label>
+
+          <input type="radio" id="sq5_2" name="q5" value="2" />
+          <label for="sq5_2" class="custom-button">Light</label>
+
+          <input type="radio" id="sq5_3" name="q5" value="3" />
+          <label for="sq5_3" class="custom-button">Moderate</label>
+
+          <input type="radio" id="sq5_4" name="q5" value="4" />
+          <label for="sq5_4" class="custom-button">Deep</label>
+
+          <input type="radio" id="sq5_5" name="q5" value="5" />
+          <label for="sq5_5" class="custom-button">Very deep</label>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="question-card">
+        <strong>6. How consistent is your sleep schedule?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq6_1" name="q6" value="1" />
+          <label for="sq6_1" class="custom-button">Very inconsistent</label>
+
+          <input type="radio" id="sq6_2" name="q6" value="2" />
+          <label for="sq6_2" class="custom-button">Inconsistent</label>
+
+          <input type="radio" id="sq6_3" name="q6" value="3" />
+          <label for="sq6_3" class="custom-button">Fairly consistent</label>
+
+          <input type="radio" id="sq6_4" name="q6" value="4" />
+          <label for="sq6_4" class="custom-button">Mostly consistent</label>
+
+          <input type="radio" id="sq6_5" name="q6" value="5" />
+          <label for="sq6_5" class="custom-button">Very consistent</label>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="question-card">
+        <strong>7. Do external noises disturb your sleep?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq7_1" name="q7" value="1" />
+          <label for="sq7_1" class="custom-button">Always</label>
+
+          <input type="radio" id="sq7_2" name="q7" value="2" />
+          <label for="sq7_2" class="custom-button">Often</label>
+
+          <input type="radio" id="sq7_3" name="q7" value="3" />
+          <label for="sq7_3" class="custom-button">Sometimes</label>
+
+          <input type="radio" id="sq7_4" name="q7" value="4" />
+          <label for="sq7_4" class="custom-button">Rarely</label>
+
+          <input type="radio" id="sq7_5" name="q7" value="5" />
+          <label for="sq7_5" class="custom-button">Never</label>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="question-card">
+        <strong>8. How comfortable is your sleeping environment?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq8_1" name="q8" value="1" />
+          <label for="sq8_1" class="custom-button">Very uncomfortable</label>
+
+          <input type="radio" id="sq8_2" name="q8" value="2" />
+          <label for="sq8_2" class="custom-button">Uncomfortable</label>
+
+          <input type="radio" id="sq8_3" name="q8" value="3" />
+          <label for="sq8_3" class="custom-button">Neutral</label>
+
+          <input type="radio" id="sq8_4" name="q8" value="4" />
+          <label for="sq8_4" class="custom-button">Comfortable</label>
+
+          <input type="radio" id="sq8_5" name="q8" value="5" />
+          <label for="sq8_5" class="custom-button">Very comfortable</label>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="question-card">
+        <strong>9. Do you feel sleepy during the day?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq9_1" name="q9" value="1" />
+          <label for="sq9_1" class="custom-button">Always</label>
+
+          <input type="radio" id="sq9_2" name="q9" value="2" />
+          <label for="sq9_2" class="custom-button">Often</label>
+
+          <input type="radio" id="sq9_3" name="q9" value="3" />
+          <label for="sq9_3" class="custom-button">Sometimes</label>
+
+          <input type="radio" id="sq9_4" name="q9" value="4" />
+          <label for="sq9_4" class="custom-button">Rarely</label>
+
+          <input type="radio" id="sq9_5" name="q9" value="5" />
+          <label for="sq9_5" class="custom-button">Never</label>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="question-card">
+        <strong>10. Overall, how would you rate your sleep quality?</strong>
+        <div class="selection-group">
+          <input type="radio" id="sq10_1" name="q10" value="1" />
+          <label for="sq10_1" class="custom-button">Very poor</label>
+
+          <input type="radio" id="sq10_2" name="q10" value="2" />
+          <label for="sq10_2" class="custom-button">Poor</label>
+
+          <input type="radio" id="sq10_3" name="q10" value="3" />
+          <label for="sq10_3" class="custom-button">Average</label>
+
+          <input type="radio" id="sq10_4" name="q10" value="4" />
+          <label for="sq10_4" class="custom-button">Good</label>
+
+          <input type="radio" id="sq10_5" name="q10" value="5" />
+          <label for="sq10_5" class="custom-button">Excellent</label>
+        </div>
+      </div>
+
+      <button type="button" onclick="calculateSleep()" class="btn btn-dark w-100 mt-3">
+        Calculate Score
+      </button>
+
+      <div id="sleepResult" class="mt-4"></div>
+
+      <button type="submit" id="nextBtn"
+              class="btn btn-primary w-100 mt-3"
+              style="display:none;">
+        Next → Stress Level
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+function calculateSleep() {
+  let total = 0;
+
+  for (let i = 1; i <= 10; i++) {
+    const ans = document.querySelector(`input[name="q${i}"]:checked`);
+    if (!ans) {
+      alert("Please answer all questions");
+      return;
+    }
+    total += parseInt(ans.value);
+  }
+
+  const score = ((total / 50) * 10).toFixed(1);
+  document.getElementById("sleep_quality").value = score;
+
+  let level, color;
+  if (score <= 4) {
+    level = "Poor Sleep Quality";
+    color = "alert-danger";
+  } else if (score <= 7) {
+    level = "Moderate Sleep Quality";
+    color = "alert-warning";
+  } else {
+    level = "Good Sleep Quality";
+    color = "alert-success";
+  }
+
+  const box = document.getElementById("sleepResult");
+  box.className = `alert ${color}`;
+  box.innerHTML = `
+    <h4>Sleep Quality Score: ${score}/10</h4>
+    <strong>${level}</strong>
+  `;
+
+  document.getElementById("nextBtn").style.display = "block";
+}
+</script>
+
+{% endblock %}

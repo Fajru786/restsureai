@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Basic Details | Sleep Health{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow-lg border-0 rounded-4 p-4">
+        <h4 class="fw-bold text-center mb-2">👤 Basic Information</h4>
+        <p class="text-muted text-center mb-4">
+          Tell us a little about yourself
+        </p>
+
+        <form method="post" action="{% url 'step1_basic' %}">
+
+          {% csrf_token %}
+
+          <!-- AGE -->
+          <div class="mb-3">
+            <label class="form-label">Age</label>
+            <input type="number" name="age" class="form-control" required>
+          </div>
+
+          <!-- GENDER -->
+          <div class="mb-3">
+            <label class="form-label">Gender</label>
+            <select name="gender" class="form-select" required>
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <!-- OCCUPATION -->
+          <div class="mb-3">
+  <label class="form-label">Occupation</label>
+  <select name="occupation" class="form-select" required>
+    <option value="" disabled selected>Select your occupation</option>
+    <option value="Accountant">Accountant</option>
+    <option value="Artist">Artist</option>
+    <option value="Chef">Chef</option>
+    <option value="Doctor">Doctor</option>
+    <option value="Engineer">Engineer</option>
+    <option value="Lawyer">Lawyer</option>
+    <option value="Manager">Manager</option>
+    <option value="Nurse">Nurse</option>
+    <option value="Sales Representative">Sales Representative</option>
+    <option value="Salesperson">Salesperson</option>
+    <option value="Scientist">Scientist</option>
+    <option value="Software Engineer">Software Engineer</option>
+    <option value="Student">Student</option>
+    <option value="Teacher">Teacher</option>
+    <option value="Writer">Writer</option>
+  </select>
+</div>
+
+          <!-- SLEEP DURATION ✅ -->
+          <div class="mb-3">
+            <label class="form-label">Average Sleep Duration (hours)</label>
+            <input type="number" step="0.1" name="sleep_duration"
+                   class="form-control" placeholder="e.g. 7.5" required>
+          </div>
+
+          <!-- DAILY STEPS -->
+          <div class="mb-4">
+            <label class="form-label">Average Daily Steps</label>
+            <input type="number" name="daily_steps"
+                   class="form-control" placeholder="e.g. 6000" required>
+          </div>
+
+          <button class="btn btn-dark w-100">
+            Next →
+          </button>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
